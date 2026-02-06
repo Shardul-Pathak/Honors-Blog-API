@@ -24,7 +24,7 @@ export async function signup (req, res) {
 
   const user = await User.create(newUser);
 
-  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ id: user._id, authorId: user.authorId }, JWT_SECRET, { expiresIn: '1h' });
 
   res.cookie('token', token, {
     httpOnly: true,
@@ -44,7 +44,7 @@ export async function login (req, res) {
   const match = await bcrypt.compare(password, user.hashedPassword);
   if (!match) return res.status(401).json({ message: 'Invalid credentials' });
 
-  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ id: user._id, authorId: user.authorId }, JWT_SECRET, { expiresIn: '1h' });
 
   res.cookie('token', token, {
     httpOnly: true,

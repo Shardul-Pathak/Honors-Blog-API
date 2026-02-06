@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./utils/connectDB.js";
 import authRoute from "./routes/authRoute.js";
+import blogRoute from "./routes/blogRoute.js";
 
 const app = express();
 const PORT = 8001;
@@ -35,6 +36,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/auth", authRoute);
+app.use("/blogs", blogRoute);
 
 app.get('/', (req, res) => {
   res.send("API is Running");
