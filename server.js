@@ -1,10 +1,8 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./utils/connectDB.js";
+import authRoute from "./routes/authRoute.js";
 
 const app = express();
 const PORT = 8001;
@@ -35,6 +33,8 @@ app.use((err, req, res, next) => {
     message: "Internal Server Error"
   });
 });
+
+app.use("/auth", authRoute);
 
 app.get('/', (req, res) => {
   res.send("API is Running");
