@@ -1,6 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 import connectDB from "./utils/connectDB.js";
 import authRoute from "./routes/authRoute.js";
 import blogRoute from "./routes/blogRoute.js";
@@ -18,6 +20,8 @@ app.use(cors({
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((err, req, res, next) => {
   if (err && err.error && err.error.isJoi) {
