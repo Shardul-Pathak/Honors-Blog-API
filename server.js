@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./utils/connectDB.js";
 import authRoute from "./routes/authRoute.js";
 import blogRoute from "./routes/blogRoute.js";
+import commentRoute from "./routes/commentRoute.js";
 
 const app = express();
 const PORT = 8001;
@@ -37,6 +38,7 @@ app.use((err, req, res, next) => {
 
 app.use("/auth", authRoute);
 app.use("/blogs", blogRoute);
+app.use("/comments", commentRoute);
 
 app.get('/', (req, res) => {
   res.send("API is Running");
