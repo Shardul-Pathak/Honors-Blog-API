@@ -5,9 +5,10 @@ import * as blogController from "../controllers/blogController.js";
 
 const router = Router();
 
-router.post("/", verifyJWT, validateCreateBlog, blogController.createBlog);
 router.get("/", blogController.getAllBlogs);
+router.get("/author", verifyJWT, blogController.getBlogsByAuthor);
 router.get("/:id", blogController.getBlogById);
+router.post("/", verifyJWT, validateCreateBlog, blogController.createBlog);
 router.put("/:id", verifyJWT, validateUpdateBlog, blogController.updateBlog);
 router.delete("/:id", verifyJWT, blogController.deleteBlog);
 

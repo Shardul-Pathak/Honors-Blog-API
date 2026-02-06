@@ -27,6 +27,15 @@ export async function getAllBlogs(req, res) {
     }
 }
 
+export async function getBlogsByAuthor(req, res) {
+    try {
+        const blogs = await Blog.find({ authorId: req.user.authorId }).populate('authorId', 'username');
+        res.status(200).json({ blogs });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
+
 export async function getBlogById(req, res) {
     try {
         const blog = await Blog.findById(req.params.id).populate('authorId', 'username');

@@ -1,6 +1,24 @@
 import Blog from "../models/blogModel.js";
 import Comment from "../models/commentModel.js";
 
+export const getAllComments = async (req, res) => {
+    try {
+        const comments = await Comment.find().populate('userId', 'username').populate('blogId', 'title');
+        res.status(200).json({ comments });
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
+export const getCommentsByUserId = async (req, res) => {
+    try {
+        const comments = await Comment.find({ userId: req.user.id }).populate('blogId', 'title');
+        res.status(200).json({ comments });
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 export const createComment = async (req, res) => {
     try {
         const comment = {
